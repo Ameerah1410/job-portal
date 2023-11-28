@@ -1,10 +1,16 @@
 const express = require("express");
 const app = express();
+
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require("dotenv").config();
+
+const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
+
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
 
@@ -17,6 +23,10 @@ app.use(bodyParser.json({ limit: "5mb" }));
 app.use(bodyParser.urlencoded({ limit: "5mb", extended: true }));
 app.use(morgan("dev"));
 app.use(cookieParser());
+
+app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+
 app.use(errorHandler);
 
 const connection_string =
