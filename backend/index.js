@@ -10,6 +10,8 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const jobTypeRoutes = require("./routes/jobTypeRoutes");
+const jobsRoutes = require("./routes/jobsRoutes");
 
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
@@ -26,6 +28,8 @@ app.use(cookieParser());
 
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use("/api", jobTypeRoutes);
+app.use("/api", jobsRoutes);
 
 app.use(errorHandler);
 
