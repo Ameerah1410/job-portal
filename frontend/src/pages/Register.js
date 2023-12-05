@@ -8,10 +8,11 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { userSignUpAction } from "../redux/actions/userActions";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   firstName: yup
-    .string("Enter your first Name")
+    .string("Enter your first name")
     .min(3, "First name should be of minimum 3 characters")
     .required("First name is required"),
   lastName: yup
@@ -30,6 +31,7 @@ const validationSchema = yup.object({
 
 const Register = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -43,6 +45,7 @@ const Register = () => {
       //alert(JSON.stringify(values, null, 2));
       dispatch(userSignUpAction(values));
       actions.resetForm();
+      navigate("/login");
     },
   });
 

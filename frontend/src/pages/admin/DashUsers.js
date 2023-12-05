@@ -5,7 +5,10 @@ import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { allUserAction } from "../../redux/actions/userActions";
+import {
+  allUserAction,
+  deleteSingleUserAction,
+} from "../../redux/actions/userActions";
 
 const DashUsers = () => {
   const dispatch = useDispatch();
@@ -14,12 +17,19 @@ const DashUsers = () => {
     dispatch(allUserAction());
   }, []);
 
+  const { success: deleteSuccess } = useSelector((state) => state.deleteUser);
   const { users, loading } = useSelector((state) => state.allUsers);
   let data = [];
   data = users !== undefined && users.length > 0 ? users : [];
 
+  // delete a user by id
   const deleteUserById = (e, id) => {
-    console.log(id);
+    if (window.confirm(`Click OK to confirm deletion of user ID:"${id}" ?`)) {
+      dispatch(deleteSingleUserAction(id));
+      if (deleteSuccess && deleteSuccess === true) {
+        dispatch(allUserAction());
+      }
+    }
   };
 
   const columns = [
@@ -89,12 +99,7 @@ const DashUsers = () => {
         <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
           All users
         </Typography>
-        <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
-          <Button variant="contained" color="success" startIcon={<AddIcon />}>
-            {" "}
-            Create user
-          </Button>
-        </Box>
+
         <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
           <Box sx={{ height: 400, width: "100%" }}>
             <DataGrid

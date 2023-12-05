@@ -54,23 +54,7 @@ const DashCategory = () => {
             justifyContent: "space-between",
             width: "170px",
           }}
-        >
-          <Button variant="contained">
-            <Link
-              style={{ color: "white", textDecoration: "none" }}
-              to={`/admin/edit/user/${values.row._id}`}
-            >
-              Edit
-            </Link>
-          </Button>
-          <Button
-            onClick={(e) => deleteJobCategoryById(e, values.row._id)}
-            variant="contained"
-            color="error"
-          >
-            Delete
-          </Button>
-        </Box>
+        ></Box>
       ),
     },
   ];

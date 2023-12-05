@@ -23,6 +23,10 @@ import {
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_RESET,
   USER_SIGNUP_SUCCESS,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL,
+  DELETE_USER_RESET,
 } from "../constants/userConstant";
 
 // sign In reducer
@@ -139,6 +143,29 @@ export const allUserReducer = (state = { users: [] }, action) => {
     case ALL_USER_LOAD_FAIL:
       return { loading: false, users: [], error: action.payload };
     case ALL_USER_LOAD_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+// delete user by id
+export const deleteUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_USER_REQUEST:
+      return { loading: true };
+    case DELETE_USER_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        message: action.payload.message,
+      };
+    case DELETE_USER_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_USER_RESET:
       return {};
     default:
       return state;

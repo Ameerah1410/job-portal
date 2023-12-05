@@ -117,3 +117,24 @@ exports.showJobs = async (req, res, next) => {
     next(error);
   }
 };
+
+// delete job by id
+exports.deleteJob = async (req, res, next) => {
+  try {
+    const job = await Job.findById(req.params.id);
+
+    // Check if the job exists
+    if (!job) {
+      return next(new ErrorResponse("Job not found", 404));
+    }
+
+    await job.deleteOne();
+
+    res.status(200).json({
+      success: true,
+      message: "Job deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};

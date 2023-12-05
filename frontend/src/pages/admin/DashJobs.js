@@ -23,7 +23,7 @@ const DashJobs = () => {
 
   // delete a job by id
   const deleteJobById = (e, id) => {
-    if (window.confirm(`You really want to delete product ID: "${id}" ?`)) {
+    if (window.confirm(`Click OK to confirm deletion of job ID:"${id}" ?`)) {
       dispatch(deleteSingleJobAction(id));
       if (deleteSuccess && deleteSuccess === true) {
         dispatch(jobLoadAction());

@@ -83,7 +83,6 @@ export const registerAjobReducer = (state = {}, action) => {
 };
 
 // delete job by id
-//delete product by id
 export const deleteJobReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_JOB_REQUEST:

@@ -19,6 +19,9 @@ import {
   USER_SIGNUP_FAIL,
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL,
 } from "../constants/userConstant";
 
 export const userSignInAction = (user) => async (dispatch) => {
@@ -30,7 +33,7 @@ export const userSignInAction = (user) => async (dispatch) => {
       type: USER_SIGNIN_SUCCESS,
       payload: data,
     });
-    toast.success("Login Successfully!");
+    toast.success("Logged in successfully!");
   } catch (error) {
     dispatch({
       type: USER_SIGNIN_FAIL,
@@ -50,7 +53,7 @@ export const userSignUpAction = (user) => async (dispatch) => {
       type: USER_SIGNUP_SUCCESS,
       payload: data,
     });
-    toast.success("Register Successfully!");
+    toast.success("Registered successfully!");
   } catch (error) {
     dispatch({
       type: USER_SIGNUP_FAIL,
@@ -70,7 +73,7 @@ export const userLogoutAction = () => async (dispatch) => {
       type: USER_LOGOUT_SUCCESS,
       payload: data,
     });
-    toast.success("Log out successfully!");
+    toast.success("Logged out successfully!");
   } catch (error) {
     dispatch({
       type: USER_LOGOUT_FAIL,
@@ -124,10 +127,29 @@ export const userApplyJobAction = (job) => async (dispatch) => {
       type: USER_APPLY_JOB_SUCCESS,
       payload: data,
     });
-    toast.success("Apply Successfully for this Job!");
+    toast.success("Application successful!");
   } catch (error) {
     dispatch({
       type: USER_APPLY_JOB_FAIL,
+      payload: error.response.data.error,
+    });
+    toast.error(error.response.data.error);
+  }
+};
+
+//delete single user action
+export const deleteSingleUserAction = (job_id) => async (dispatch) => {
+  dispatch({ type: DELETE_USER_REQUEST });
+  try {
+    const { data } = await axios.delete(`/api/admin/user/delete/${job_id}`);
+    dispatch({
+      type: DELETE_USER_SUCCESS,
+      payload: data,
+    });
+    toast.success("User deleted successfully");
+  } catch (error) {
+    dispatch({
+      type: DELETE_USER_FAIL,
       payload: error.response.data.error,
     });
     toast.error(error.response.data.error);
