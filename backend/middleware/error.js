@@ -5,7 +5,7 @@ const errorHandler = (err, req, res, next) => {
   error.message = err.message;
 
   if (err.name === "CastError") {
-    const message = `Ressource not found ${err.value}`;
+    const message = `Resource not found ${err.value}`;
     error = new ErrorResponse(message, 404);
   }
 
@@ -23,7 +23,7 @@ const errorHandler = (err, req, res, next) => {
 
   res.status(error.codeStatus || 500).json({
     success: false,
-    error: error.message || "server error",
+    error: error.message || "Server error",
   });
 };
 

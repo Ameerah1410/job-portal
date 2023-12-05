@@ -83,8 +83,8 @@ const DashJobs = () => {
         >
           <Button variant="contained">
             <Link
+              to={`/job/update/${values.row._id}`}
               style={{ color: "white", textDecoration: "none" }}
-              to={`/admin/edit/job/${values.row._id}`}
             >
               Edit
             </Link>
@@ -104,7 +104,7 @@ const DashJobs = () => {
   return (
     <Box>
       <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
-        Jobs list
+        All Jobs
       </Typography>
       <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
         <Button variant="contained" color="success" startIcon={<AddIcon />}>

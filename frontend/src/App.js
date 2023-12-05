@@ -22,6 +22,7 @@ import Register from "./pages/Register";
 import DashCategory from "./pages/admin/DashCategory";
 import DashCreateJob from "./pages/admin/DashCreateJob";
 import DashCreateCategory from "./pages/admin/DashCreateCategory";
+import EditJob from "./pages/admin/EditJob";
 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
@@ -33,6 +34,7 @@ const DashJobsHOC = Layout(DashJobs);
 const DashCategoryHOC = Layout(DashCategory);
 const DashCreateJobHOC = Layout(DashCreateJob);
 const DashCreateCategoryHOC = Layout(DashCreateCategory);
+const EditJobHOC = Layout(EditJob);
 
 const App = () => {
   return (
@@ -86,6 +88,14 @@ const App = () => {
                 element={
                   <AdminRoute>
                     <DashCreateJobHOC />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/job/update/:id"
+                element={
+                  <AdminRoute>
+                    <EditJobHOC />
                   </AdminRoute>
                 }
               />

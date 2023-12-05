@@ -13,6 +13,9 @@ import {
   REGISTER_JOB_FAIL,
   REGISTER_JOB_REQUEST,
   REGISTER_JOB_SUCCESS,
+  UPDATE_JOB_REQUEST,
+  UPDATE_JOB_SUCCESS,
+  UPDATE_JOB_FAIL,
 } from "../constants/jobConstant";
 
 export const jobLoadAction =
@@ -86,6 +89,27 @@ export const registerAjobAction = (job) => async (dispatch) => {
     dispatch({
       type: REGISTER_JOB_FAIL,
       payload: error.response.data.error,
+    });
+    toast.error(error.response.data.error);
+  }
+};
+
+//update job action
+export const updateJobAction = (job_id, updatedData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_JOB_REQUEST });
+
+    const { data } = await axios.put(`/api/job/update/${job_id}`, updatedData);
+
+    dispatch({
+      type: UPDATE_JOB_SUCCESS,
+      payload: data,
+    });
+    toast.success("Job updated successfully");
+  } catch (error) {
+    dispatch({
+      type: UPDATE_JOB_FAIL,
+      payload: error.response ? error.response.data.error : error.message,
     });
     toast.error(error.response.data.error);
   }

@@ -15,6 +15,9 @@ import {
   REGISTER_JOB_REQUEST,
   REGISTER_JOB_RESET,
   REGISTER_JOB_SUCCESS,
+  UPDATE_JOB_REQUEST,
+  UPDATE_JOB_SUCCESS,
+  UPDATE_JOB_FAIL,
 } from "../constants/jobConstant";
 
 export const loadJobReducer = (state = { jobs: [] }, action) => {
@@ -100,6 +103,39 @@ export const deleteJobReducer = (state = {}, action) => {
       };
     case DELETE_JOB_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+//update job
+const initialState = {
+  job: null,
+  isLoading: false,
+  error: null,
+};
+
+export const updateJobReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case UPDATE_JOB_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case UPDATE_JOB_SUCCESS:
+      return {
+        ...state,
+        job: action.payload,
+        isLoading: false,
+        error: null,
+      };
+    case UPDATE_JOB_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }

@@ -6,6 +6,7 @@ import {
   loadJobReducer,
   loadJobSingleReducer,
   registerAjobReducer,
+  updateJobReducer,
 } from "./reducers/jobReducer";
 import {
   createJobTypeReducer,
@@ -36,6 +37,7 @@ const reducer = combineReducers({
   deleteJob: deleteJobReducer,
   createJobType: createJobTypeReducer,
   deleteUser: deleteUserReducer,
+  updateJob: updateJobReducer,
 });
 
 //initial state
