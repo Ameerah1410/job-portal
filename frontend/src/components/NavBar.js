@@ -54,7 +54,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ bgcolor: palette.primary.main }}>
       <Container>
         {/* principal Menu */}
         <Toolbar disableGutters>
@@ -143,15 +143,38 @@ const Navbar = () => {
                 Home
               </Link>
             </Button>
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              <Link
+                to="/register"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                Register
+              </Link>
+            </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="" />
+                <Avatar
+                  sx={{ color: palette.primary.white }}
+                  alt="Remy Sharp"
+                  src=""
+                />
               </IconButton>
             </Tooltip>
             <Menu
+              PaperProps={{
+                sx: {
+                  "& 	.MuiMenu-list": {
+                    bgcolor: "primary.white",
+                    color: "white",
+                  },
+                },
+              }}
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -172,11 +195,24 @@ const Navbar = () => {
                   <Link
                     style={{
                       textDecoration: "none",
-                      color: palette.primary.main,
+                      color: palette.secondary.main,
                     }}
                     to="/admin/dashboard"
                   >
-                    Dashboard
+                    Admin Dashboard
+                  </Link>
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      color: palette.secondary.main,
+                    }}
+                    to="/user/dashboard"
+                  >
+                    User Dashboard
                   </Link>
                 </Typography>
               </MenuItem>
@@ -187,7 +223,7 @@ const Navbar = () => {
                     <Link
                       style={{
                         textDecoration: "none",
-                        color: palette.primary.main,
+                        color: palette.secondary.main,
                       }}
                       to="/login"
                     >
@@ -200,7 +236,7 @@ const Navbar = () => {
                   <Typography
                     style={{
                       textDecoration: "none",
-                      color: palette.primary.main,
+                      color: palette.secondary.main,
                     }}
                     textAlign="center"
                   >

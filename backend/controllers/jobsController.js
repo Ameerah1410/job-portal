@@ -74,6 +74,7 @@ exports.showJobs = async (req, res, next) => {
   let cat = req.query.cat;
   let categ = cat !== "" ? cat : ids;
 
+  //jobs by location
   let locations = [];
   const jobByLocation = await Job.find({}, { location: 1 });
   jobByLocation.forEach((val) => {
@@ -100,6 +101,8 @@ exports.showJobs = async (req, res, next) => {
       location: locationFilter,
     })
       .sort({ createdAt: -1 })
+      .populate("jobType", "jobTypeName")
+      .populate("user", "firstName")
       .skip(pageSize * (page - 1))
       .limit(pageSize);
     res.status(200).json({
