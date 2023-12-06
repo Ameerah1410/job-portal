@@ -17,10 +17,12 @@ import { useTheme } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogoutAction } from "../redux/actions/userActions.js";
 
+// Array of page names for the navigation menu
 const pages = ["Home", "Log In"];
 
+// Navbar component
 const Navbar = () => {
-  //show / hide button
+  // Show/hide button
   const { userInfo } = useSelector((state) => state.signIn);
 
   const dispatch = useDispatch();
@@ -44,7 +46,7 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-  // log out user
+  // Logout user
   const logOutUser = () => {
     dispatch(userLogoutAction());
     window.location.reload(true);
@@ -56,7 +58,7 @@ const Navbar = () => {
   return (
     <AppBar position="static" sx={{ bgcolor: palette.primary.main }}>
       <Container>
-        {/* principal Menu */}
+        {/* Principal Menu */}
         <Toolbar disableGutters>
           <WorkIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
@@ -106,6 +108,7 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
+              {/* Mapping through pages array for navigation links */}
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
@@ -133,8 +136,7 @@ const Navbar = () => {
             JOB PORTAL
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {/* menu desktop */}
-
+            {/* Menu desktop */}
             <Button
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
