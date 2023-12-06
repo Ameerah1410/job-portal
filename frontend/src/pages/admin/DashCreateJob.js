@@ -25,7 +25,7 @@ const DashCreateJob = () => {
   //job type
   useEffect(() => {
     dispatch(jobTypeLoadAction());
-  }, []);
+  }, [dispatch]);
 
   const { jobType } = useSelector((state) => state.jobTypeAll);
 

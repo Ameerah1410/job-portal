@@ -15,7 +15,7 @@ import WorkIcon from "@mui/icons-material/Work";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogoutAction } from "../redux/actions/userActions";
+import { userLogoutAction } from "../redux/actions/userActions.js";
 
 const pages = ["Home", "Log In"];
 

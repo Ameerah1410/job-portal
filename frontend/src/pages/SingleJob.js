@@ -8,7 +8,7 @@ import LoadingBox from "../components/LoadingBox";
 import Navbar from "../components/NavBar";
 import { jobLoadSingleAction } from "../redux/actions/jobAction";
 import Button from "@mui/material/Button";
-import { userApplyJobAction } from "../redux/actions/userActions";
+import { userApplyJobAction } from "../redux/actions/userActions.js";
 
 const SingleJob = () => {
   const dispatch = useDispatch();

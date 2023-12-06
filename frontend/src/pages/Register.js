@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
-import { userSignUpAction } from "../redux/actions/userActions";
+import { userSignUpAction } from "../redux/actions/userActions.js";
 import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({

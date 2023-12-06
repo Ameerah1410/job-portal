@@ -2,13 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { updateJobAction } from "../../redux/actions/jobAction";
-import { Button, TextField, Typography, MenuItem, Box } from "@mui/material";
+import { Button, TextField, Typography, Box } from "@mui/material";
 import { useFormik } from "formik";
 
 const EditJob = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { jobs, loading, deleting } = useSelector((state) => state.loadJobs);
+  const { jobs } = useSelector((state) => state.loadJobs);
 
   const navigate = useNavigate();
 

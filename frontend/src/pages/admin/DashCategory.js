@@ -13,7 +13,7 @@ const DashCategory = () => {
 
   useEffect(() => {
     dispatch(jobTypeLoadAction());
-  }, []);
+  }, [dispatch]);
 
   const { jobType, loading } = useSelector((state) => state.jobTypeAll);
   let data = [];

@@ -1,24 +1,22 @@
 import React, { useEffect } from "react";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { DataGrid, gridClasses, GridToolbar } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import {
   allUserAction,
   deleteSingleUserAction,
-} from "../../redux/actions/userActions";
+} from "../../redux/actions/userActions.js";
 
 const DashUsers = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(allUserAction());
-  }, []);
+  }, [dispatch]);
 
   const { success: deleteSuccess } = useSelector((state) => state.deleteUser);
-  const { users, loading } = useSelector((state) => state.allUsers);
+  const { users } = useSelector((state) => state.allUsers);
   let data = [];
   data = users !== undefined && users.length > 0 ? users : [];
 
@@ -73,14 +71,6 @@ const DashUsers = () => {
             width: "170px",
           }}
         >
-          <Button variant="contained">
-            <Link
-              style={{ color: "white", textDecoration: "none" }}
-              to={`/admin/edit/user/${values.row._id}`}
-            >
-              Edit
-            </Link>
-          </Button>
           <Button
             onClick={(e) => deleteUserById(e, values.row._id)}
             variant="contained"
