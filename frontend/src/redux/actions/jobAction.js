@@ -98,6 +98,7 @@ export const registerAjobAction = (job) => async (dispatch) => {
 export const updateJobAction = (job_id, updatedData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_JOB_REQUEST });
+
     const { data } = await axios.put(`/api/job/update/${job_id}`, updatedData);
 
     dispatch({
