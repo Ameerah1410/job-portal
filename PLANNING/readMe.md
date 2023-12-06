@@ -36,7 +36,7 @@ The app will be deployed on a cloud platform, such as Render or Netlify. This ch
 
    - Logs in to access admin functionalities.
    - Manages job listings (Add, Delete, Update, View).
-   - Manages users (Add, Delete, Edit, View).
+   - Manages users (Delete, View).
 
 2. **Normal User:**
    - Registers for an account.
