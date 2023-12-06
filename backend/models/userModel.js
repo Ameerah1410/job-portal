@@ -3,6 +3,7 @@ const { ObjectId } = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+// Subschema for jobs history
 const jobsHistorySchema = new mongoose.Schema(
   {
     title: {
@@ -10,7 +11,6 @@ const jobsHistorySchema = new mongoose.Schema(
       trim: true,
       maxlength: 70,
     },
-
     description: {
       type: String,
       trim: true,
@@ -30,34 +30,34 @@ const jobsHistorySchema = new mongoose.Schema(
       enum: ["pending", "accepted", "rejected"],
       default: "pending",
     },
-
     user: {
       type: ObjectId,
-      ref: "User",
+      ref: "User", // Reference to the User model
       required: true,
     },
   },
   { timestamps: true }
 );
 
+// Main user schema
 const userSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
       trim: true,
-      required: [true, "first name is required"],
+      required: [true, "First name is required"],
       maxlength: 32,
     },
     lastName: {
       type: String,
       trim: true,
-      required: [true, "last name is required"],
+      required: [true, "Last name is required"],
       maxlength: 32,
     },
     email: {
       type: String,
       trim: true,
-      required: [true, "e-mail is required"],
+      required: [true, "E-mail is required"],
       unique: true,
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -67,21 +67,20 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       trim: true,
-      required: [true, "password is required"],
-      minlength: [6, "password must have at least (6) characters"],
+      required: [true, "Password is required"],
+      minlength: [6, "Password must have at least (6) characters"],
     },
-
-    jobsHistory: [jobsHistorySchema],
+    jobsHistory: [jobsHistorySchema], // Embedding jobs history schema
 
     role: {
       type: Number,
-      default: 0,
+      default: 0, // Default role (0 for regular user)
     },
   },
   { timestamps: true }
 );
 
-//encrypting password before saving
+// Middleware to encrypt the password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
@@ -89,12 +88,12 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-// compare user password
+// Method to compare user password
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// return a JWT token
+// Method to return a JWT token
 userSchema.methods.getJwtToken = function () {
   return jwt.sign({ id: this.id }, process.env.JWT_SECRET, {
     expiresIn: 3600,
