@@ -1,5 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -37,103 +39,116 @@ const DashCreateCategoryHOC = Layout(DashCreateCategory);
 const EditJobHOC = Layout(EditJob);
 
 const App = () => {
+  const [user, setUser] = useState(null);
+
+  const getUser = async () => {
+    try {
+      const url = "http://localhost:5000/auth/login/success";
+      const { data } = await axios.get(url, { withCredentials: true });
+      setUser(data.user._json);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
   return (
     <>
       <ToastContainer />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ProSidebarProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/search/location/:location" element={<Home />} />
-              <Route path="/search/:keyword" element={<Home />} />
-              <Route path="/login" element={<LogIn />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/job/:id" element={<SingleJob />} />
-              <Route
-                path="/admin/dashboard"
-                element={
-                  <AdminRoute>
-                    <AdminDashboardHOC />
-                  </AdminRoute>
-                }
-              />
-              <Route
-                path="/admin/users"
-                element={
-                  <AdminRoute>
-                    <DashUsersHOC />
-                  </AdminRoute>
-                }
-              />
-              <Route
-                path="/admin/jobs"
-                element={
-                  <AdminRoute>
-                    <DashJobsHOC />
-                  </AdminRoute>
-                }
-              />
-              <Route
-                path="/admin/category"
-                element={
-                  <AdminRoute>
-                    <DashCategoryHOC />
-                  </AdminRoute>
-                }
-              />
-              <Route
-                path="/admin/job/create"
-                element={
-                  <AdminRoute>
-                    <DashCreateJobHOC />
-                  </AdminRoute>
-                }
-              />
-              <Route
-                path="/job/update/:id"
-                element={
-                  <AdminRoute>
-                    <EditJobHOC />
-                  </AdminRoute>
-                }
-              />
-              <Route
-                path="/admin/category/create"
-                element={
-                  <AdminRoute>
-                    <DashCreateCategoryHOC />
-                  </AdminRoute>
-                }
-              />
-              <Route
-                path="/user/dashboard"
-                element={
-                  <UserRoute>
-                    <UserDashboardHOC />
-                  </UserRoute>
-                }
-              />
-              <Route
-                path="/user/jobs"
-                element={
-                  <UserRoute>
-                    <UserJobsHistoryHOC />
-                  </UserRoute>
-                }
-              />
-              <Route
-                path="/user/info"
-                element={
-                  <UserRoute>
-                    <UserInfoDashboardHOC />
-                  </UserRoute>
-                }
-              />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/search/location/:location" element={<Home />} />
+            <Route path="/search/:keyword" element={<Home />} />
+            <Route path="/login" element={<LogIn user={user} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/job/:id" element={<SingleJob />} />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <AdminRoute>
+                  <AdminDashboardHOC />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/admin/users"
+              element={
+                <AdminRoute>
+                  <DashUsersHOC />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/admin/jobs"
+              element={
+                <AdminRoute>
+                  <DashJobsHOC />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/admin/category"
+              element={
+                <AdminRoute>
+                  <DashCategoryHOC />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/admin/job/create"
+              element={
+                <AdminRoute>
+                  <DashCreateJobHOC />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/job/update/:id"
+              element={
+                <AdminRoute>
+                  <EditJobHOC />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/admin/category/create"
+              element={
+                <AdminRoute>
+                  <DashCreateCategoryHOC />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/user/dashboard"
+              element={
+                <UserRoute>
+                  <UserDashboardHOC />
+                </UserRoute>
+              }
+            />
+            <Route
+              path="/user/jobs"
+              element={
+                <UserRoute>
+                  <UserJobsHistoryHOC />
+                </UserRoute>
+              }
+            />
+            <Route
+              path="/user/info"
+              element={
+                <UserRoute>
+                  <UserInfoDashboardHOC />
+                </UserRoute>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </ProSidebarProvider>
       </ThemeProvider>
     </>

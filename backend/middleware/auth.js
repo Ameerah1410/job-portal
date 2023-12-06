@@ -7,7 +7,7 @@ exports.isAuthenticated = async (req, res, next) => {
   const { token } = req.cookies;
   // Make sure token exists
   if (!token) {
-    return next(new ErrorResponse("Access denied, you must an admin", 401));
+    return next(new ErrorResponse("Access denied, you must be logged in", 401));
   }
 
   try {

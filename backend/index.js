@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 
@@ -6,7 +7,10 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-require("dotenv").config();
+const passport = require("passport");
+const cookieSession = require("cookie-session");
+const passportSetup = require("./passport");
+const authRoute = require("./routes/auth");
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -17,6 +21,26 @@ const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
 
 const PORT = process.env.PORT || 5000;
+
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["ameerah"],
+    maxAge: 24 * 60 * 60 * 100,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+  })
+);
+
+app.use("/auth", authRoute);
 
 app.use(helmet());
 app.use(cors());

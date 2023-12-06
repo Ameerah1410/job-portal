@@ -49,12 +49,19 @@ const Register = () => {
     },
   });
 
+  const googleAuth = () => {
+    window.open(
+      `${process.env.REACT_APP_API_URL}/auth/google/callback`,
+      "_self"
+    );
+  };
+
   return (
     <>
       <Navbar />
       <Box
         sx={{
-          minHeight: "calc(100vh - 140px)",
+          minHeight: "calc(100vh - 100px)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -171,6 +178,10 @@ const Register = () => {
 
             <Button fullWidth variant="contained" type="submit">
               Register
+            </Button>
+            <p>or</p>
+            <Button onClick={googleAuth} fullWidth variant="contained">
+              Register with Google
             </Button>
           </Box>
         </Box>
