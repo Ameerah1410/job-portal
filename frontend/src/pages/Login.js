@@ -53,9 +53,9 @@ const LogIn = () => {
     },
   });
 
-  /*const googleAuth = () => {
+  const googleAuth = () => {
     window.open(`http://localhost:5000/auth/google/callback`, "_self");
-  };*/
+  };
 
   return (
     <>
@@ -120,8 +120,10 @@ const LogIn = () => {
             <Button fullWidth variant="contained" type="submit">
               Log In
             </Button>
-            {/*<p>or</p>
-            <Button onClick={googleAuth}>Sign in with Google</Button>*/}
+            <p>or</p>
+            <Button onClick={googleAuth} fullWidth variant="contained">
+              Sign in with Google
+            </Button>
           </Box>
         </Box>
       </Box>
