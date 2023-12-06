@@ -9,21 +9,26 @@ const {
 } = require("../controllers/userController");
 const { isAuthenticated, isAdmin } = require("../middleware/auth");
 
-//user routes
+// User routes
 
-// /api/allusers
+// Get all users (admin access required)
+// Endpoint: /api/allusers
 router.get("/allusers", isAuthenticated, isAdmin, allUsers);
 
-// /api/user/id
+// Get a single user by ID (authenticated user access required)
+// Endpoint: /api/user/id
 router.get("/user/:id", isAuthenticated, singleUser);
 
-// /api/user/edit/id
+// Edit user details by ID (authenticated user access required)
+// Endpoint: /api/user/edit/id
 router.put("/user/edit/:id", isAuthenticated, editUser);
 
-// /api/admin/user/delete/id
+// Delete a user by ID (admin access required)
+// Endpoint: /api/admin/user/delete/id
 router.delete("/admin/user/delete/:id", isAuthenticated, isAdmin, deleteUser);
 
-// /api/user/jobhistory
+// Create a user's job history entry (authenticated user access required)
+// Endpoint: /api/user/jobhistory
 router.post("/user/jobhistory", isAuthenticated, createUserJobsHistory);
 
 module.exports = router;

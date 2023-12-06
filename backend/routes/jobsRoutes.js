@@ -9,20 +9,26 @@ const {
 } = require("../controllers/jobsController");
 const { isAuthenticated, isAdmin } = require("../middleware/auth");
 
-//jobs routes
+// Job routes
 
-// /api/job/create
+// Create a job (admin access required)
+// Endpoint: /api/job/create
 router.post("/job/create", isAuthenticated, isAdmin, createJob);
 
-// /api/job/id
+// Get a single job by ID
+// Endpoint: /api/job/id
 router.get("/job/:id", singleJob);
 
-// /api/job/update/job_id
+// Update a job by ID (admin access required)
+// Endpoint: /api/job/update/job_id
 router.put("/job/update/:job_id", isAuthenticated, isAdmin, updateJob);
 
-// /api/jobs/show
+// Show all jobs with optional search, category, and location filters
+// Endpoint: /api/jobs/show
 router.get("/jobs/show", showJobs);
 
-router.route("/job/delete/:id").delete(isAuthenticated, isAdmin, deleteJob);
+// Delete a job by ID (admin access required)
+// Endpoint: /api/job/delete/id
+router.delete("/job/delete/:id", isAuthenticated, isAdmin, deleteJob);
 
 module.exports = router;

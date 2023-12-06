@@ -8,17 +8,22 @@ const {
 } = require("../controllers/jobTypeController");
 const { isAuthenticated, isAdmin } = require("../middleware/auth");
 
-//job type routes
+// Job type routes
 
-// /api/type/create
+// Create a job type (admin access required)
+// Endpoint: /api/type/create
 router.post("/type/create", isAuthenticated, isAdmin, createJobType);
-// /api/type/jobs
+
+// Get all job types
+// Endpoint: /api/type/jobs
 router.get("/type/jobs", allJobsType);
 
-// /api/type/update/type_id
+// Update a job type by ID (admin access required)
+// Endpoint: /api/type/update/type_id
 router.put("/type/update/:type_id", isAuthenticated, isAdmin, updateJobType);
 
-// /api/type/delete/type_id
+// Delete a job type by ID (admin access required)
+// Endpoint: /api/type/delete/type_id
 router.delete("/type/delete/:type_id", isAuthenticated, isAdmin, deleteJobType);
 
 module.exports = router;

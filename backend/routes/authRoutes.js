@@ -8,14 +8,22 @@ const {
 } = require("../controllers/authController");
 const { isAuthenticated } = require("../middleware/auth");
 
-//auth routes
-// /api/signup
+// Authentication routes
+
+// User signup
+// Endpoint: /api/signup
 router.post("/signup", signup);
-// /api/signin
+
+// User signin
+// Endpoint: /api/signin
 router.post("/signin", signin);
-// /api/logout
+
+// User logout
+// Endpoint: /api/logout
 router.get("/logout", logout);
-// /api/me
+
+// User profile
+// Endpoint: /api/me
 router.get("/me", isAuthenticated, userProfile);
 
 module.exports = router;

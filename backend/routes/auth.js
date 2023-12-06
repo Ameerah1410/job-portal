@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 
+// Route for successful login
 router.get("/login/success", (req, res) => {
   if (req.user) {
     res.status(200).json({
@@ -13,6 +14,7 @@ router.get("/login/success", (req, res) => {
   }
 });
 
+// Route for failed login
 router.get("/login/failed", (req, res) => {
   res.status(401).json({
     error: true,
@@ -20,19 +22,22 @@ router.get("/login/failed", (req, res) => {
   });
 });
 
+// Route for initiating Google authentication
 router.get("/google", passport.authenticate("google", ["profile", "email"]));
 
+// Callback route after Google authentication
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: process.env.CLIENT_URL,
-    failureRedirect: "/login/failed",
+    successRedirect: process.env.CLIENT_URL, // Redirect on successful login
+    failureRedirect: "/login/failed", // Redirect on failed login
   })
 );
 
+// Route for logging out
 router.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect(process.env.CLIENT_URL);
+  req.logout(); // Logout the user
+  res.redirect(process.env.CLIENT_URL); // Redirect to the client URL
 });
 
 module.exports = router;
