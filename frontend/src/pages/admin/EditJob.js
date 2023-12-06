@@ -21,7 +21,6 @@ const EditJob = () => {
       description: job.description,
       salary: job.salary,
       location: job.location,
-      jobType: job?.jobType.jobTypeName,
     },
     onSubmit: (values, actions) => {
       dispatch(updateJobAction(job._id, values));
@@ -62,19 +61,6 @@ const EditJob = () => {
             }}
             placeholder="Enter the ID"
             value={formik.values.id}
-            onChange={formik.handleChange}
-          />
-          <TextField
-            sx={{ mb: 3 }}
-            fullWidth
-            id="jobType"
-            label="Job Type"
-            name="jobType"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            placeholder="Enter the job type"
-            value={formik.values.jobType}
             onChange={formik.handleChange}
           />
           <TextField

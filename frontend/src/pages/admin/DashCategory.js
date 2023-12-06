@@ -15,14 +15,9 @@ const DashCategory = () => {
     dispatch(jobTypeLoadAction());
   }, [dispatch]);
 
-  const { jobType, loading } = useSelector((state) => state.jobTypeAll);
+  const { jobType } = useSelector((state) => state.jobTypeAll);
   let data = [];
   data = jobType !== undefined && jobType.length > 0 ? jobType : [];
-
-  //delete job by Id
-  const deleteJobCategoryById = (e, id) => {
-    console.log(id);
-  };
 
   const columns = [
     {
