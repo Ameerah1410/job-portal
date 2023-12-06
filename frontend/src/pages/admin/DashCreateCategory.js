@@ -6,16 +6,19 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createJobTypeAction } from "../../redux/actions/jobTypeAction";
 
+// Validation schema using yup
 const validationSchema = yup.object({
   jobTypeName: yup
     .string("Enter a job category")
     .required("A job category is required"),
 });
 
+// DashCreateCategory component
 const DashCreateCategory = () => {
   const { user } = useSelector((state) => state.userProfile);
   const dispatch = useDispatch();
 
+  // Formik configuration
   const formik = useFormik({
     initialValues: {
       user: user && user._id,
@@ -23,8 +26,8 @@ const DashCreateCategory = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
+      // Dispatching the action to create a job category
       dispatch(createJobTypeAction(values));
-      //alert(JSON.stringify(values, null, 2));
       actions.resetForm();
     },
   });
@@ -40,6 +43,7 @@ const DashCreateCategory = () => {
           pt: 4,
         }}
       >
+        {/* Form for creating a job category */}
         <Box
           onSubmit={formik.handleSubmit}
           component="form"
@@ -53,9 +57,12 @@ const DashCreateCategory = () => {
               width: "100%",
             }}
           >
+            {/* Title */}
             <Typography variant="h5" component="h2" sx={{ pb: 3 }}>
               Create a Category
             </Typography>
+
+            {/* Text field for job category name */}
             <TextField
               sx={{ mb: 3 }}
               fullWidth
@@ -77,6 +84,7 @@ const DashCreateCategory = () => {
               }
             />
 
+            {/* Button for submitting the form */}
             <Button fullWidth variant="contained" type="submit">
               Create category
             </Button>
@@ -87,4 +95,5 @@ const DashCreateCategory = () => {
   );
 };
 
+// Exporting the DashCreateCategory component as the default export
 export default DashCreateCategory;

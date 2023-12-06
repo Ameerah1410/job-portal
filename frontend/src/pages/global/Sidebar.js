@@ -1,3 +1,4 @@
+// Importing React, hooks, and Material-UI components
 import React, { useEffect } from "react";
 import {
   Sidebar,
@@ -24,18 +25,27 @@ import {
 import { useNavigate } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 
+// SidebarAdm component
 const SidebarAdm = () => {
+  // Extracting user information from Redux store
   const { userInfo } = useSelector((state) => state.signIn);
+
+  // Extracting theme palette from Material-UI
   const { palette } = useTheme();
+
+  // Using ProSidebar hook to control sidebar collapse
   const { collapsed } = useProSidebar();
+
+  // Initializing dispatch and navigate functions
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // useEffect to fetch user profile information
   useEffect(() => {
     dispatch(userProfileAction());
   }, [dispatch]);
 
-  //log out
+  // Logout function
   const logOut = () => {
     dispatch(userLogoutAction());
     window.location.reload(true);
@@ -44,8 +54,10 @@ const SidebarAdm = () => {
     }, 500);
   };
 
+  // Rendering JSX
   return (
     <>
+      {/* Sidebar component */}
       <Sidebar backgroundColor="#003366" style={{ borderRightStyle: "none" }}>
         <Box
           sx={{
@@ -59,6 +71,7 @@ const SidebarAdm = () => {
             <Box
               sx={{ pt: 3, pb: 5, display: "flex", justifyContent: "center" }}
             >
+              {/* Conditional rendering of logo/avatar based on collapse state */}
               {collapsed ? (
                 <Avatar alt="logo dashboard" src={logoDashboard} />
               ) : (
@@ -78,6 +91,7 @@ const SidebarAdm = () => {
               )}
             </Box>
 
+            {/* Menu for navigation based on user role */}
             <Menu
               menuItemStyles={{
                 button: {
@@ -95,12 +109,12 @@ const SidebarAdm = () => {
 
                 icon: {
                   [`&.${menuClasses.icon}`]: {
-                    // color: "blue",
                     color: palette.primary.main,
                   },
                 },
               }}
             >
+              {/* Conditional rendering of menu items based on user role */}
               {userInfo && userInfo.role === 1 ? (
                 <>
                   <MenuItem
@@ -160,13 +174,13 @@ const SidebarAdm = () => {
             </Menu>
           </Box>
           <Box sx={{ pb: 2 }}>
+            {/* Logout menu item */}
             <Menu
               menuItemStyles={{
                 button: {
                   [`&.${menuClasses.button}`]: {
                     color: "#fafafa",
                   },
-
                   "&:hover": {
                     backgroundColor: "rgba(23,105,170, 1)",
                     color: "#fafafa",
@@ -175,7 +189,6 @@ const SidebarAdm = () => {
 
                 icon: {
                   [`&.${menuClasses.icon}`]: {
-                    // color: "blue",
                     color: palette.primary.main,
                   },
                 },
@@ -193,4 +206,5 @@ const SidebarAdm = () => {
   );
 };
 
+// Exporting the SidebarAdm component as the default export
 export default SidebarAdm;

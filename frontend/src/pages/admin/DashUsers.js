@@ -8,19 +8,22 @@ import {
   deleteSingleUserAction,
 } from "../../redux/actions/userActions.js";
 
+// DashUsers component
 const DashUsers = () => {
   const dispatch = useDispatch();
 
+  // Fetching all users when the component mounts
   useEffect(() => {
     dispatch(allUserAction());
   }, [dispatch]);
 
+  // Selecting relevant state data from the Redux store
   const { success: deleteSuccess } = useSelector((state) => state.deleteUser);
   const { users } = useSelector((state) => state.allUsers);
   let data = [];
   data = users !== undefined && users.length > 0 ? users : [];
 
-  // delete a user by id
+  // Function to delete a user by ID
   const deleteUserById = (e, id) => {
     if (window.confirm(`Click OK to confirm deletion of user ID:"${id}" ?`)) {
       dispatch(deleteSingleUserAction(id));
@@ -30,6 +33,7 @@ const DashUsers = () => {
     }
   };
 
+  // DataGrid columns configuration
   const columns = [
     {
       field: "_id",
@@ -86,12 +90,15 @@ const DashUsers = () => {
   return (
     <>
       <Box>
+        {/* Title for the component */}
         <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
           All users
         </Typography>
 
+        {/* Paper container for the DataGrid */}
         <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
           <Box sx={{ height: 400, width: "100%" }}>
+            {/* DataGrid component to display user data */}
             <DataGrid
               sx={{
                 "& .MuiTablePagination-displayedRows": {
@@ -99,9 +106,7 @@ const DashUsers = () => {
                 },
                 color: "white",
                 [`& .${gridClasses.row}`]: {
-                  bgcolor: (theme) =>
-                    // theme.palette.mode === 'light' ? grey[200] : grey[900],
-                    theme.palette.secondary.main,
+                  bgcolor: (theme) => theme.palette.secondary.main,
                 },
                 button: {
                   color: "#ffffff",
@@ -122,4 +127,5 @@ const DashUsers = () => {
   );
 };
 
+// Exporting the DashUsers component as the default export
 export default DashUsers;

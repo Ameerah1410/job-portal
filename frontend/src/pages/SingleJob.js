@@ -1,23 +1,35 @@
-import { Card, CardContent, Stack, Typography } from "@mui/material";
-import { Box, Container } from "@mui/system";
-import { useEffect } from "react";
+// Importing required modules and components from Material-UI and React
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import {
+  Box,
+  Container,
+  Stack,
+  Typography,
+  Card,
+  CardContent,
+  Button,
+} from "@mui/material";
+import { userApplyJobAction } from "../redux/actions/userActions.js";
+import Navbar from "../components/NavBar";
 import Footer from "../components/Footer";
 import LoadingBox from "../components/LoadingBox";
-import Navbar from "../components/NavBar";
 import { jobLoadSingleAction } from "../redux/actions/jobAction";
-import Button from "@mui/material/Button";
-import { userApplyJobAction } from "../redux/actions/userActions.js";
 
+// Functional component representing a single job details page
 const SingleJob = () => {
+  // Initializing React hooks
   const dispatch = useDispatch();
   const { singleJob, loading } = useSelector((state) => state.singleJob);
   const { id } = useParams();
+
+  // Fetching single job details based on the id parameter
   useEffect(() => {
     dispatch(jobLoadSingleAction(id));
   }, [dispatch, id]);
 
+  // Handling job application
   const applyForAJob = () => {
     dispatch(
       userApplyJobAction({
@@ -29,20 +41,29 @@ const SingleJob = () => {
     );
   };
 
+  // Rendering JSX
   return (
     <>
+      {/* Main container */}
       <Box sx={{ bgcolor: "#fafafa" }}>
+        {/* Navigation bar */}
         <Navbar />
+
+        {/* Content container */}
         <Box sx={{ height: "85vh" }}>
           <Container sx={{ pt: "30px" }}>
+            {/* Main content stack */}
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={{ xs: 1, sm: 2, md: 4 }}
             >
+              {/* Left column: Displaying job details */}
               <Box sx={{ flex: 4, p: 2 }}>
                 {loading ? (
+                  // Loading spinner while job details are being fetched
                   <LoadingBox />
                 ) : (
+                  // Displaying job details in a Material-UI card
                   <Card>
                     <CardContent>
                       <Typography variant="h5" component="h3">
@@ -54,7 +75,6 @@ const SingleJob = () => {
                         </Box>
                         : ${singleJob && singleJob.salary}
                       </Typography>
-
                       <Typography variant="body2">
                         <Box component="span" sx={{ fontWeight: 700 }}>
                           Location
@@ -68,8 +88,11 @@ const SingleJob = () => {
                   </Card>
                 )}
               </Box>
+
+              {/* Right column: Apply button */}
               <Box sx={{ flex: 1, p: 2 }}>
                 <Card sx={{ p: 2 }}>
+                  {/* Button to apply for the job */}
                   <Button
                     onClick={applyForAJob}
                     sx={{ fontSize: "13px" }}
@@ -82,10 +105,13 @@ const SingleJob = () => {
             </Stack>
           </Container>
         </Box>
+
+        {/* Footer */}
         <Footer />
       </Box>
     </>
   );
 };
 
+// Exporting the component as the default export
 export default SingleJob;

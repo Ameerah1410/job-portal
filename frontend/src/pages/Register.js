@@ -1,3 +1,5 @@
+// Importing required modules and components from Material-UI and React
+import React from "react";
 import { Avatar, Box } from "@mui/material";
 import Footer from "../components/Footer";
 import Navbar from "../components/NavBar";
@@ -10,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { userSignUpAction } from "../redux/actions/userActions.js";
 import { useNavigate } from "react-router-dom";
 
+// Validation schema using Yup for form validation
 const validationSchema = yup.object({
   firstName: yup
     .string("Enter your first name")
@@ -29,10 +32,13 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 
+// Functional component representing the registration page
 const Register = () => {
+  // Initializing React hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Using Formik for form state management and validation
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -42,13 +48,14 @@ const Register = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
-      //alert(JSON.stringify(values, null, 2));
+      // Dispatching user registration action and navigating to login page
       dispatch(userSignUpAction(values));
       actions.resetForm();
       navigate("/login");
     },
   });
 
+  // Function to initiate Google authentication
   const googleAuth = () => {
     window.open(
       `${process.env.REACT_APP_API_URL}/auth/google/callback`,
@@ -56,9 +63,13 @@ const Register = () => {
     );
   };
 
+  // Rendering JSX
   return (
     <>
+      {/* Navigation bar */}
       <Navbar />
+
+      {/* Main content container */}
       <Box
         sx={{
           minHeight: "calc(100vh - 100px)",
@@ -68,11 +79,13 @@ const Register = () => {
           bgcolor: "primary.white",
         }}
       >
+        {/* Registration form */}
         <Box
           onSubmit={formik.handleSubmit}
           component="form"
           className="form_style border-style"
         >
+          {/* Form content */}
           <Box
             sx={{
               display: "flex",
@@ -81,10 +94,14 @@ const Register = () => {
               width: "100%",
             }}
           >
+            {/* Avatar and lock icon */}
             <Avatar sx={{ m: 1, bgcolor: "primary.main", mb: 3 }}>
               <LockOpenIcon />
             </Avatar>
+
+            {/* Text fields for user input */}
             <TextField
+              // First Name input field
               sx={{
                 mb: 3,
                 "& .MuiInputBase-root": {
@@ -108,6 +125,8 @@ const Register = () => {
               }
               helperText={formik.touched.firstName && formik.errors.firstName}
             />
+
+            {/* Last Name input field */}
             <TextField
               sx={{
                 mb: 3,
@@ -130,6 +149,8 @@ const Register = () => {
               error={formik.touched.lastName && Boolean(formik.errors.lastName)}
               helperText={formik.touched.lastName && formik.errors.lastName}
             />
+
+            {/* Email input field */}
             <TextField
               sx={{
                 mb: 3,
@@ -152,6 +173,8 @@ const Register = () => {
               error={formik.touched.email && Boolean(formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
             />
+
+            {/* Password input field */}
             <TextField
               sx={{
                 mb: 3,
@@ -176,6 +199,7 @@ const Register = () => {
               helperText={formik.touched.password && formik.errors.password}
             />
 
+            {/* Register and Google registration buttons */}
             <Button fullWidth variant="contained" type="submit">
               Register
             </Button>
@@ -186,9 +210,12 @@ const Register = () => {
           </Box>
         </Box>
       </Box>
+
+      {/* Footer */}
       <Footer />
     </>
   );
 };
 
+// Exporting the component as the default export
 export default Register;

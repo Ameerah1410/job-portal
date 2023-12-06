@@ -9,19 +9,22 @@ import {
   jobLoadAction,
 } from "../../redux/actions/jobAction";
 
+// DashJobs component
 const DashJobs = () => {
   const dispatch = useDispatch();
 
+  // Fetching job data when the component mounts
   useEffect(() => {
     dispatch(jobLoadAction());
   }, [dispatch]);
 
+  // Selecting relevant state data from the Redux store
   const { success: deleteSuccess } = useSelector((state) => state.deleteJob);
   const { jobs } = useSelector((state) => state.loadJobs);
   let data = [];
   data = jobs !== undefined && jobs.length > 0 ? jobs : [];
 
-  // delete a job by id
+  // Function to delete a job by ID
   const deleteJobById = (e, id) => {
     if (window.confirm(`Click OK to confirm deletion of job ID:"${id}" ?`)) {
       dispatch(deleteSingleJobAction(id));
@@ -31,6 +34,7 @@ const DashJobs = () => {
     }
   };
 
+  // DataGrid columns configuration
   const columns = [
     {
       field: "_id",
@@ -61,7 +65,6 @@ const DashJobs = () => {
       width: 150,
       renderCell: (values) => (values.row.available ? "Yes" : "No"),
     },
-
     {
       field: "salary",
       headerName: "Salary",
@@ -69,7 +72,6 @@ const DashJobs = () => {
       width: 150,
       renderCell: (values) => "$" + values.row.salary,
     },
-
     {
       field: "Actions",
       width: 200,
@@ -81,6 +83,7 @@ const DashJobs = () => {
             width: "170px",
           }}
         >
+          {/* Link to the job update page */}
           <Button variant="contained">
             <Link
               to={`/job/update/${values.row._id}`}
@@ -89,6 +92,7 @@ const DashJobs = () => {
               Edit
             </Link>
           </Button>
+          {/* Button to delete a job */}
           <Button
             onClick={(e) => deleteJobById(e, values.row._id)}
             variant="contained"
@@ -103,10 +107,13 @@ const DashJobs = () => {
 
   return (
     <Box>
+      {/* Title for the component */}
       <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
         All Jobs
       </Typography>
+
       <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
+        {/* Button to navigate to the create job page */}
         <Button variant="contained" color="success" startIcon={<AddIcon />}>
           {" "}
           <Link
@@ -117,8 +124,11 @@ const DashJobs = () => {
           </Link>
         </Button>
       </Box>
+
+      {/* Paper container for the DataGrid */}
       <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
         <Box sx={{ height: 400, width: "100%" }}>
+          {/* DataGrid component to display job data */}
           <DataGrid
             getRowId={(row) => row._id}
             sx={{
@@ -127,9 +137,7 @@ const DashJobs = () => {
               },
               color: "white",
               [`& .${gridClasses.row}`]: {
-                bgcolor: (theme) =>
-                  // theme.palette.mode === 'light' ? grey[200] : grey[900],
-                  theme.palette.secondary.main,
+                bgcolor: (theme) => theme.palette.secondary.main,
               },
               button: {
                 color: "#ffffff",
@@ -147,4 +155,5 @@ const DashJobs = () => {
   );
 };
 
+// Exporting the DashJobs component as the default export
 export default DashJobs;

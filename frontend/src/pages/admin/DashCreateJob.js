@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { jobTypeLoadAction } from "../../redux/actions/jobTypeAction";
 import { registerAjobAction } from "../../redux/actions/jobAction";
 
+// Validation schema using yup
 const validationSchema = yup.object({
   title: yup.string("Enter a job title").required("Title is required"),
   description: yup
@@ -19,16 +20,19 @@ const validationSchema = yup.object({
   jobType: yup.string("Enter a Category").required("Category is required"),
 });
 
+// DashCreateJob component
 const DashCreateJob = () => {
   const dispatch = useDispatch();
 
-  //job type
+  // Fetching job types
   useEffect(() => {
     dispatch(jobTypeLoadAction());
   }, [dispatch]);
 
+  // Selecting job types from the Redux store
   const { jobType } = useSelector((state) => state.jobTypeAll);
 
+  // Formik configuration
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -40,7 +44,6 @@ const DashCreateJob = () => {
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
       dispatch(registerAjobAction(values));
-      // alert(JSON.stringify(values, null, 2));
       actions.resetForm();
     },
   });
@@ -56,6 +59,7 @@ const DashCreateJob = () => {
           pt: 4,
         }}
       >
+        {/* Form for creating a job */}
         <Box
           onSubmit={formik.handleSubmit}
           component="form"
@@ -69,9 +73,12 @@ const DashCreateJob = () => {
               width: "100%",
             }}
           >
+            {/* Title */}
             <Typography variant="h5" component="h2" sx={{ pb: 3 }}>
               Register a Job
             </Typography>
+
+            {/* Text fields for job details */}
             <TextField
               sx={{ mb: 3 }}
               fullWidth
@@ -144,6 +151,7 @@ const DashCreateJob = () => {
               helperText={formik.touched.location && formik.errors.location}
             />
 
+            {/* Dropdown for selecting job type */}
             <TextField
               sx={{ mb: 3 }}
               fullWidth
@@ -169,6 +177,7 @@ const DashCreateJob = () => {
                 ))}
             </TextField>
 
+            {/* Button for submitting the form */}
             <Button fullWidth variant="contained" type="submit">
               Create job
             </Button>
@@ -179,4 +188,5 @@ const DashCreateJob = () => {
   );
 };
 
+// Exporting the DashCreateJob component as the default export
 export default DashCreateJob;

@@ -1,3 +1,4 @@
+// Importing necessary React and Material-UI components and styles
 import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -8,9 +9,10 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-//import sidebar hook
+// Importing sidebar hook from react-pro-sidebar
 import { useProSidebar } from "react-pro-sidebar";
 
+// Styling for the search bar
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -26,6 +28,7 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
+// Styling for the search icon wrapper
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
@@ -36,11 +39,12 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   justifyContent: "center",
 }));
 
+// Styling for the input base (search input)
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
+    // Vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -53,12 +57,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+// HeaderTop component
 const HeaderTop = () => {
+  // Using sidebar hook to handle sidebar collapse
   const { collapseSidebar } = useProSidebar();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
+      {/* App Bar */}
       <AppBar position="static" sx={{ boxShadow: 0 }}>
+        {/* Toolbar */}
         <Toolbar>
+          {/* Sidebar collapse button */}
           <IconButton
             onClick={() => collapseSidebar()}
             size="large"
@@ -69,6 +79,8 @@ const HeaderTop = () => {
           >
             <MenuIcon />
           </IconButton>
+
+          {/* Title */}
           <Typography
             variant="h6"
             noWrap
@@ -77,6 +89,8 @@ const HeaderTop = () => {
           >
             HR APP
           </Typography>
+
+          {/* Search bar */}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -92,4 +106,5 @@ const HeaderTop = () => {
   );
 };
 
+// Exporting the HeaderTop component as the default export
 export default HeaderTop;
