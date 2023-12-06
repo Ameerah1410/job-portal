@@ -22,6 +22,7 @@ const errorHandler = require("./middleware/error");
 
 const PORT = process.env.PORT || 5000;
 
+// Initialize cookie session for user authentication
 app.use(
   cookieSession({
     name: "session",
@@ -32,6 +33,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Enable CORS with specific options
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -40,8 +42,10 @@ app.use(
   })
 );
 
+// Authentication routes
 app.use("/auth", authRoute);
 
+// Middleware and security-related setups
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
@@ -50,29 +54,31 @@ app.use(bodyParser.urlencoded({ limit: "5mb", extended: true }));
 app.use(morgan("dev"));
 app.use(cookieParser());
 
+// Application routes
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", jobTypeRoutes);
 app.use("/api", jobsRoutes);
 
+// Error handling middleware
 app.use(errorHandler);
 
+// MongoDB connection setup
 const connection_string =
   "mongodb+srv://Ameerah14:Basic1012@hyperiondevtasks.y7esotx.mongodb.net/JobPortal";
 
-// Connect to MongoDB using the defined connection URI
 mongoose.connect(connection_string, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-// Storing the reference to the MongoDB connection
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", function () {
   console.log("Connected to MongoDB");
 });
 
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
