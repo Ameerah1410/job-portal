@@ -1,3 +1,4 @@
+// Importing action constants for job operations
 import {
   DELETE_JOB_FAIL,
   DELETE_JOB_REQUEST,
@@ -20,6 +21,7 @@ import {
   UPDATE_JOB_FAIL,
 } from "../constants/jobConstant";
 
+// Reducer for loading multiple jobs
 export const loadJobReducer = (state = { jobs: [] }, action) => {
   switch (action.type) {
     case JOB_LOAD_REQUEST:
@@ -46,7 +48,7 @@ export const loadJobReducer = (state = { jobs: [] }, action) => {
   }
 };
 
-// single job reducer
+// Reducer for loading a single job
 export const loadJobSingleReducer = (state = { job: {} }, action) => {
   switch (action.type) {
     case JOB_LOAD_SINGLE_REQUEST:
@@ -66,7 +68,7 @@ export const loadJobSingleReducer = (state = { job: {} }, action) => {
   }
 };
 
-//Registred job;
+// Reducer for registering a job
 export const registerAjobReducer = (state = {}, action) => {
   switch (action.type) {
     case REGISTER_JOB_REQUEST:
@@ -85,7 +87,7 @@ export const registerAjobReducer = (state = {}, action) => {
   }
 };
 
-// delete job by id
+// Reducer for deleting a job by id
 export const deleteJobReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_JOB_REQUEST:
@@ -108,7 +110,7 @@ export const deleteJobReducer = (state = {}, action) => {
   }
 };
 
-//update job
+// Reducer for updating a job
 const initialState = {
   job: null,
   isLoading: false,

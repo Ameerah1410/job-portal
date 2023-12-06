@@ -1,6 +1,9 @@
+// Importing necessary dependencies
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "@redux-devtools/extension";
+
+// Importing reducers for different parts of the state
 import {
   deleteJobReducer,
   loadJobReducer,
@@ -22,7 +25,7 @@ import {
   deleteUserReducer,
 } from "./reducers/userReducer";
 
-//combine reducers
+// Combine reducers to create the root reducer
 const reducer = combineReducers({
   loadJobs: loadJobReducer,
   jobTypeAll: loadJobTypeReducer,
@@ -40,7 +43,7 @@ const reducer = combineReducers({
   updateJob: updateJobReducer,
 });
 
-//initial state
+// Initial state with user information retrieved from local storage
 let initialState = {
   signIn: {
     userInfo: localStorage.getItem("userInfo")
@@ -48,7 +51,11 @@ let initialState = {
       : null,
   },
 };
+
+// Middleware for handling asynchronous actions
 const middleware = [thunk];
+
+// Creating the Redux store with the root reducer, initial state, and middleware
 const store = createStore(
   reducer,
   initialState,

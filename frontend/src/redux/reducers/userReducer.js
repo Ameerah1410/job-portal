@@ -1,3 +1,4 @@
+// Importing action constants for user operations
 import {
   ALL_USER_LOAD_FAIL,
   ALL_USER_LOAD_REQUEST,
@@ -29,7 +30,7 @@ import {
   DELETE_USER_RESET,
 } from "../constants/userConstant";
 
-// sign In reducer
+// Sign In reducer
 export const userReducerSignIn = (state = {}, action) => {
   switch (action.type) {
     case USER_SIGNIN_REQUEST:
@@ -54,7 +55,7 @@ export const userReducerSignIn = (state = {}, action) => {
   }
 };
 
-// sign up reducer
+// Sign Up reducer
 export const userReducerSignUp = (state = {}, action) => {
   switch (action.type) {
     case USER_SIGNUP_REQUEST:
@@ -73,7 +74,7 @@ export const userReducerSignUp = (state = {}, action) => {
   }
 };
 
-//user profile
+// User profile reducer
 export const userReducerProfile = (state = { user: null }, action) => {
   switch (action.type) {
     case USER_LOAD_REQUEST:
@@ -92,7 +93,7 @@ export const userReducerProfile = (state = { user: null }, action) => {
   }
 };
 
-//log out reducer
+// Log out reducer
 export const userReducerLogout = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGOUT_REQUEST:
@@ -111,7 +112,7 @@ export const userReducerLogout = (state = {}, action) => {
   }
 };
 
-// apply for a job reducer
+// Apply for a job reducer
 export const userApplyJobReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_APPLY_JOB_REQUEST:
@@ -130,7 +131,7 @@ export const userApplyJobReducer = (state = {}, action) => {
   }
 };
 
-//all users reducer
+// All users reducer
 export const allUserReducer = (state = { users: [] }, action) => {
   switch (action.type) {
     case ALL_USER_LOAD_REQUEST:
@@ -149,7 +150,7 @@ export const allUserReducer = (state = { users: [] }, action) => {
   }
 };
 
-// delete user by id
+// Delete user by id reducer
 export const deleteUserReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_USER_REQUEST:

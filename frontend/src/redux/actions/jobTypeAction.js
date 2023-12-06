@@ -9,7 +9,7 @@ import {
   JOB_TYPE_LOAD_SUCCESS,
 } from "../constants/jobTypeConstant";
 
-// load jobs type
+// Action to load job types
 export const jobTypeLoadAction = () => async (dispatch) => {
   dispatch({ type: JOB_TYPE_LOAD_REQUEST });
   try {
@@ -26,7 +26,7 @@ export const jobTypeLoadAction = () => async (dispatch) => {
   }
 };
 
-// create jobs category
+// Action to create a new job category
 export const createJobTypeAction = (jobtype) => async (dispatch) => {
   dispatch({ type: CREATE_JOB_TYPE_REQUEST });
 

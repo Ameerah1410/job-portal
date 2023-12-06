@@ -24,6 +24,7 @@ import {
   DELETE_USER_FAIL,
 } from "../constants/userConstant";
 
+// Action to sign in a user
 export const userSignInAction = (user) => async (dispatch) => {
   dispatch({ type: USER_SIGNIN_REQUEST });
   try {
@@ -43,7 +44,7 @@ export const userSignInAction = (user) => async (dispatch) => {
   }
 };
 
-// user sign up action
+// Action to sign up a new user
 export const userSignUpAction = (user) => async (dispatch) => {
   dispatch({ type: USER_SIGNUP_REQUEST });
   try {
@@ -63,7 +64,7 @@ export const userSignUpAction = (user) => async (dispatch) => {
   }
 };
 
-//log out action
+// Action to log out a user
 export const userLogoutAction = () => async (dispatch) => {
   dispatch({ type: USER_LOGOUT_REQUEST });
   try {
@@ -83,7 +84,7 @@ export const userLogoutAction = () => async (dispatch) => {
   }
 };
 
-//user profile action
+// Action to get user profile information
 export const userProfileAction = () => async (dispatch) => {
   dispatch({ type: USER_LOAD_REQUEST });
   try {
@@ -100,7 +101,7 @@ export const userProfileAction = () => async (dispatch) => {
   }
 };
 
-//all user action
+// Action to get information about all users
 export const allUserAction = () => async (dispatch) => {
   dispatch({ type: ALL_USER_LOAD_REQUEST });
   try {
@@ -117,7 +118,7 @@ export const allUserAction = () => async (dispatch) => {
   }
 };
 
-//user job apply action
+// Action to apply for a job
 export const userApplyJobAction = (job) => async (dispatch) => {
   dispatch({ type: USER_APPLY_JOB_REQUEST });
   try {
@@ -137,7 +138,7 @@ export const userApplyJobAction = (job) => async (dispatch) => {
   }
 };
 
-//delete single user action
+// Action to delete a user by ID
 export const deleteSingleUserAction = (job_id) => async (dispatch) => {
   dispatch({ type: DELETE_USER_REQUEST });
   try {

@@ -1,3 +1,4 @@
+// Importing necessary dependencies and components
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -26,7 +27,7 @@ import DashCreateJob from "./pages/admin/DashCreateJob";
 import DashCreateCategory from "./pages/admin/DashCreateCategory";
 import EditJob from "./pages/admin/EditJob";
 
-//HOC
+// Higher Order Components (HOC) for layouts
 const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
 const UserInfoDashboardHOC = Layout(UserInfoDashboard);
@@ -38,9 +39,12 @@ const DashCreateJobHOC = Layout(DashCreateJob);
 const DashCreateCategoryHOC = Layout(DashCreateCategory);
 const EditJobHOC = Layout(EditJob);
 
+// Main App component
 const App = () => {
+  // State to manage user information
   const [user, setUser] = useState(null);
 
+  // Function to fetch user information
   const getUser = async () => {
     try {
       const url = "http://localhost:5000/auth/login/success";
@@ -51,15 +55,23 @@ const App = () => {
     }
   };
 
+  // Fetch user information on component mount
   useEffect(() => {
     getUser();
   }, []);
+
   return (
     <>
+      {/* Notification container */}
       <ToastContainer />
+
+      {/* Theme setup */}
       <ThemeProvider theme={theme}>
         <CssBaseline />
+
+        {/* Sidebar provider */}
         <ProSidebarProvider>
+          {/* Routing setup */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search/location/:location" element={<Home />} />
@@ -67,6 +79,8 @@ const App = () => {
             <Route path="/login" element={<LogIn user={user} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/job/:id" element={<SingleJob />} />
+
+            {/* Admin routes */}
             <Route
               path="/admin/dashboard"
               element={
@@ -123,6 +137,8 @@ const App = () => {
                 </AdminRoute>
               }
             />
+
+            {/* User routes */}
             <Route
               path="/user/dashboard"
               element={
@@ -147,6 +163,8 @@ const App = () => {
                 </UserRoute>
               }
             />
+
+            {/* Not found route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ProSidebarProvider>

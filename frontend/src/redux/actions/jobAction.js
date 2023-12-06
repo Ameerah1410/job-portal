@@ -18,6 +18,7 @@ import {
   UPDATE_JOB_FAIL,
 } from "../constants/jobConstant";
 
+// Action to load jobs
 export const jobLoadAction =
   (pageNumber, keyword = "", cat = "", location = "") =>
   async (dispatch) => {
@@ -38,7 +39,7 @@ export const jobLoadAction =
     }
   };
 
-// single job action
+// Action to load a single job
 export const jobLoadSingleAction = (id) => async (dispatch) => {
   dispatch({ type: JOB_LOAD_SINGLE_REQUEST });
   try {
@@ -55,7 +56,7 @@ export const jobLoadSingleAction = (id) => async (dispatch) => {
   }
 };
 
-//delete single job action
+// Action to delete a single job
 export const deleteSingleJobAction = (job_id) => async (dispatch) => {
   dispatch({ type: DELETE_JOB_REQUEST });
   try {
@@ -74,7 +75,7 @@ export const deleteSingleJobAction = (job_id) => async (dispatch) => {
   }
 };
 
-// register job action
+// Action to register a new job
 export const registerAjobAction = (job) => async (dispatch) => {
   dispatch({ type: REGISTER_JOB_REQUEST });
 
@@ -94,7 +95,7 @@ export const registerAjobAction = (job) => async (dispatch) => {
   }
 };
 
-//update job action
+// Action to update a job
 export const updateJobAction = (job_id, updatedData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_JOB_REQUEST });

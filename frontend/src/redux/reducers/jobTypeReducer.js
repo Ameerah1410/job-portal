@@ -1,3 +1,4 @@
+// Importing action constants for job type operations
 import {
   CREATE_JOB_TYPE_FAIL,
   CREATE_JOB_TYPE_REQUEST,
@@ -9,7 +10,7 @@ import {
   JOB_TYPE_LOAD_SUCCESS,
 } from "../constants/jobTypeConstant";
 
-// load job type reducer
+// Reducer for loading job types
 export const loadJobTypeReducer = (state = { jobType: [] }, action) => {
   switch (action.type) {
     case JOB_TYPE_LOAD_REQUEST:
@@ -31,7 +32,7 @@ export const loadJobTypeReducer = (state = { jobType: [] }, action) => {
   }
 };
 
-// create job type reducer
+// Reducer for creating a job type
 export const createJobTypeReducer = (state = {}, action) => {
   switch (action.type) {
     case CREATE_JOB_TYPE_REQUEST:
