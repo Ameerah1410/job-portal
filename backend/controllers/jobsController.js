@@ -2,9 +2,10 @@ const Job = require("../models/jobModel");
 const JobType = require("../models/jobTypeModel");
 const ErrorResponse = require("../utils/errorResponse");
 
-//create job
+// Create a new job
 exports.createJob = async (req, res, next) => {
   try {
+    // Create a job using data from the request body and the user ID
     const job = await Job.create({
       title: req.body.title,
       description: req.body.description,
@@ -13,48 +14,59 @@ exports.createJob = async (req, res, next) => {
       jobType: req.body.jobType,
       user: req.user.id,
     });
+
+    // Respond with the created job
     res.status(201).json({
       success: true,
       job,
     });
   } catch (error) {
+    // Pass any errors to the error-handling middleware
     next(error);
   }
 };
 
-//single job
+// Retrieve a single job by its ID
 exports.singleJob = async (req, res, next) => {
   try {
+    // Fetch a job by its ID
     const job = await Job.findById(req.params.id);
+
+    // Respond with the job data
     res.status(200).json({
       success: true,
       job,
     });
   } catch (error) {
+    // Pass any errors to the error-handling middleware
     next(error);
   }
 };
 
-//update job by id
+// Update a job by its ID
 exports.updateJob = async (req, res, next) => {
   try {
+    // Update a job by its ID using data from the request body
     const job = await Job.findByIdAndUpdate(req.params.job_id, req.body, {
       new: true,
     })
       .populate("jobType", "jobTypeName")
       .populate("user", "firstName lastName");
+
+    // Respond with the updated job data
     res.status(200).json({
       success: true,
       job,
     });
   } catch (error) {
+    // Pass any errors to the error-handling middleware
     next(error);
   }
 };
 
-//show all jobs
+// Show all jobs with search, filter, and pagination
 exports.showJobs = async (req, res, next) => {
-  //enable search
+  // Enable search
   const keyword = req.query.keyword
     ? {
         title: {
@@ -64,17 +76,18 @@ exports.showJobs = async (req, res, next) => {
       }
     : {};
 
-  // filter jobs by category ids
+  // Fetch all job categories to filter jobs by category IDs
   let ids = [];
   const jobTypeCategory = await JobType.find({}, { _id: 1 });
   jobTypeCategory.forEach((cat) => {
     ids.push(cat._id);
   });
 
+  // Filter jobs by category IDs
   let cat = req.query.cat;
   let categ = cat !== "" ? cat : ids;
 
-  //jobs by location
+  // Fetch all unique job locations
   let locations = [];
   const jobByLocation = await Job.find({}, { location: 1 });
   jobByLocation.forEach((val) => {
@@ -84,10 +97,9 @@ exports.showJobs = async (req, res, next) => {
   let location = req.query.location;
   let locationFilter = location !== "" ? location : setUniqueLocation;
 
-  //enable pagination
+  // Enable pagination
   const pageSize = 5;
   const page = Number(req.query.pageNumber) || 1;
-  //const count = await Job.find({}).estimatedDocumentCount();
   const count = await Job.find({
     ...keyword,
     jobType: categ,
@@ -95,6 +107,7 @@ exports.showJobs = async (req, res, next) => {
   }).countDocuments();
 
   try {
+    // Fetch jobs based on search, category, location, and pagination parameters
     const jobs = await Job.find({
       ...keyword,
       jobType: categ,
@@ -105,6 +118,8 @@ exports.showJobs = async (req, res, next) => {
       .populate("user", "firstName")
       .skip(pageSize * (page - 1))
       .limit(pageSize);
+
+    // Respond with the list of jobs
     res.status(200).json({
       success: true,
       jobs,
@@ -114,13 +129,15 @@ exports.showJobs = async (req, res, next) => {
       setUniqueLocation,
     });
   } catch (error) {
+    // Pass any errors to the error-handling middleware
     next(error);
   }
 };
 
-// delete job by id
+// Delete a job by its ID
 exports.deleteJob = async (req, res, next) => {
   try {
+    // Fetch a job by its ID
     const job = await Job.findById(req.params.id);
 
     // Check if the job exists
@@ -128,13 +145,16 @@ exports.deleteJob = async (req, res, next) => {
       return next(new ErrorResponse("Job not found", 404));
     }
 
+    // Delete the job
     await job.deleteOne();
 
+    // Respond with success message
     res.status(200).json({
       success: true,
       message: "Job deleted successfully",
     });
   } catch (error) {
+    // Pass any errors to the error-handling middleware
     next(error);
   }
 };
