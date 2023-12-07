@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "build": "node build",
-    "test": "jest"
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "server": "cd backend && npm start",
+    "client": "cd frotnend && npm start",
+    "build": "cd frontend && npm run build"
   },
   "keywords": [],
   "author": "",
