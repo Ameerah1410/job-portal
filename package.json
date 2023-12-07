@@ -271,12 +271,6 @@
     "yocto-queue": "^0.1.0"
   },
   "devDependencies": {},
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "cross-env NODE_ENV=test jest --config jest.config.js",
-    "eject": "react-scripts eject"
-  },
   "author": "",
   "license": "ISC"
 }
