@@ -56,7 +56,7 @@ const CardElement = ({ jobTitle, description, category, location, id }) => {
             style={{ textDecoration: "none", color: "white", boxShadow: 0 }}
             to={`/job/${id}`}
           >
-            More...
+            More
           </Link>
         </Button>
       </CardActions>
