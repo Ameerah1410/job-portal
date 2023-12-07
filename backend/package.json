@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
-    "server": "cd backend && npm start",
-    "client": "cd frotnend && npm start",
-    "build": "cd frontend && npm run build"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "keywords": [],
   "author": "",
