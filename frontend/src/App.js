@@ -1,6 +1,6 @@
 // Importing necessary dependencies and components
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Home from "./pages/Home";
@@ -47,9 +47,23 @@ const App = () => {
   // Function to fetch user information
   const getUser = async () => {
     try {
-      const url = "http://localhost:5000/auth/login/success";
-      const { data } = await axios.get(url, { withCredentials: true });
-      setUser(data.user._json);
+      const response = await axios.get(
+        "http://localhost:5000/auth/login/success",
+        {
+          withCredentials: true,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setUser(response.data.user);
+        console.log("User:", response.data.user); // Log the user object
+      } else {
+        throw new Error("Authentication failed");
+      }
     } catch (err) {
       console.log(err);
     }

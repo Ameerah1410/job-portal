@@ -1,13 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-
+const passport = require("passport");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const passport = require("passport");
 const cookieSession = require("cookie-session");
 const passportSetup = require("./passport");
 const authRoute = require("./routes/auth");

@@ -8,6 +8,8 @@ router.get("/login/success", (req, res) => {
       error: false,
       message: "Successfully Logged In",
       user: req.user,
+      cookies: req.cookies,
+      jwtToken: req.jwtToken,
     });
   } else {
     res.status(403).json({ error: true, message: "Not Authorized" });
@@ -23,7 +25,7 @@ router.get("/login/failed", (req, res) => {
 });
 
 // Route for initiating Google authentication
-router.get("/google", passport.authenticate("google", ["profile", "email"]));
+router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 
 // Callback route after Google authentication
 router.get(
@@ -31,7 +33,10 @@ router.get(
   passport.authenticate("google", {
     successRedirect: process.env.CLIENT_URL, // Redirect on successful login
     failureRedirect: "/login/failed", // Redirect on failed login
-  })
+  }),
+  (req, res) => {
+    res.redirect(process.env.CLIENT_URL);
+  }
 );
 
 // Route for logging out
@@ -40,4 +45,17 @@ router.get("/logout", (req, res) => {
   res.redirect(process.env.CLIENT_URL); // Redirect to the client URL
 });
 
+router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
+
+// Callback route after Github authentication
+router.get(
+  "/github/callback",
+  passport.authenticate("github", {
+    successRedirect: process.env.CLIENT_URL, // Redirect on successful login
+    failureRedirect: "/login/failed", // Redirect on failed login
+  }),
+  (req, res) => {
+    res.redirect(process.env.CLIENT_URL);
+  }
+);
 module.exports = router;

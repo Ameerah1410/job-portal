@@ -62,6 +62,10 @@ const LogIn = () => {
     window.open(`http://localhost:5000/auth/google/callback`, "_self");
   };
 
+  const githubAuth = () => {
+    window.open(`http://localhost:5000/auth/google/callback`, "_self");
+  };
+
   // Rendering JSX
   return (
     <>
@@ -141,6 +145,10 @@ const LogIn = () => {
             <p>or</p>
             <Button onClick={googleAuth} fullWidth variant="contained">
               Sign in with Google
+            </Button>
+            <p>or</p>
+            <Button onClick={githubAuth} fullWidth variant="contained">
+              Sign in with GitHub
             </Button>
           </Box>
         </Box>

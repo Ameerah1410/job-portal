@@ -70,6 +70,10 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       minlength: [6, "Password must have at least (6) characters"],
     },
+    googleId: {
+      type: String,
+      unique: true,
+    },
     jobsHistory: [jobsHistorySchema], // Embedding jobs history schema
 
     role: {
