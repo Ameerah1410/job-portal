@@ -57,15 +57,6 @@ const LogIn = () => {
     },
   });
 
-  // Function to initiate Google authentication
-  const googleAuth = () => {
-    window.open(`http://localhost:5000/auth/google/callback`, "_self");
-  };
-
-  const githubAuth = () => {
-    window.open(`http://localhost:5000/auth/google/callback`, "_self");
-  };
-
   // Rendering JSX
   return (
     <>
@@ -141,14 +132,6 @@ const LogIn = () => {
             {/* Log In and Google login buttons */}
             <Button fullWidth variant="contained" type="submit">
               Log In
-            </Button>
-            <p>or</p>
-            <Button onClick={googleAuth} fullWidth variant="contained">
-              Sign in with Google
-            </Button>
-            <p>or</p>
-            <Button onClick={githubAuth} fullWidth variant="contained">
-              Sign in with GitHub
             </Button>
           </Box>
         </Box>

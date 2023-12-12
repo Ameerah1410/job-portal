@@ -41,39 +41,6 @@ const EditJobHOC = Layout(EditJob);
 
 // Main App component
 const App = () => {
-  // State to manage user information
-  const [user, setUser] = useState(null);
-
-  // Function to fetch user information
-  const getUser = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:5000/auth/login/success",
-        {
-          withCredentials: true,
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        setUser(response.data.user);
-        console.log("User:", response.data.user); // Log the user object
-      } else {
-        throw new Error("Authentication failed");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // Fetch user information on component mount
-  useEffect(() => {
-    getUser();
-  }, []);
-
   return (
     <>
       {/* Notification container */}
@@ -90,7 +57,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/search/location/:location" element={<Home />} />
             <Route path="/search/:keyword" element={<Home />} />
-            <Route path="/login" element={<LogIn user={user} />} />
+            <Route path="/login" element={<LogIn />} />
             <Route path="/register" element={<Register />} />
             <Route path="/job/:id" element={<SingleJob />} />
 
