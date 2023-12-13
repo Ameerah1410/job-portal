@@ -15,7 +15,7 @@ const jobsRoutes = require("./routes/jobsRoutes");
 
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
-
+//support
 const PORT = process.env.PORT || 5000;
 
 // Middleware and security-related setups
