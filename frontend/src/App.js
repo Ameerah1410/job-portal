@@ -1,8 +1,6 @@
 // Importing necessary dependencies and components
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import { CssBaseline, ThemeProvider } from "@mui/material";

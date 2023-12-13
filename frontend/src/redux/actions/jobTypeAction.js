@@ -1,4 +1,4 @@
-import axios from "axios";
+import { instance } from "../../axiosInstance";
 import { toast } from "react-toastify";
 import {
   CREATE_JOB_TYPE_FAIL,
@@ -13,9 +13,7 @@ import {
 export const jobTypeLoadAction = () => async (dispatch) => {
   dispatch({ type: JOB_TYPE_LOAD_REQUEST });
   try {
-    const { data } = await axios.get(
-      "https://job-portal-backend-6gxk.onrender.com/api/type/jobs"
-    );
+    const { data } = await instance.get("/api/type/jobs");
     dispatch({
       type: JOB_TYPE_LOAD_SUCCESS,
       payload: data,
@@ -33,10 +31,7 @@ export const createJobTypeAction = (jobtype) => async (dispatch) => {
   dispatch({ type: CREATE_JOB_TYPE_REQUEST });
 
   try {
-    const { data } = await axios.post(
-      "https://job-portal-backend-6gxk.onrender.com/api/type/create",
-      jobtype
-    );
+    const { data } = await instance.post("/api/type/create", jobtype);
     dispatch({
       type: CREATE_JOB_TYPE_SUCCESS,
       payload: data,

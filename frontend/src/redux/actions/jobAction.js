@@ -1,4 +1,4 @@
-import axios from "axios";
+import { instance } from "../../axiosInstance";
 import { toast } from "react-toastify";
 import {
   DELETE_JOB_FAIL,
@@ -24,8 +24,8 @@ export const jobLoadAction =
   async (dispatch) => {
     dispatch({ type: JOB_LOAD_REQUEST });
     try {
-      const { data } = await axios.get(
-        `https://job-portal-backend-6gxk.onrender.com/api/jobs/show/?pageNumber=${pageNumber}&keyword=${keyword}&cat=${cat}&location=${location}`
+      const { data } = await instance.get(
+        `api/jobs/show/?pageNumber=${pageNumber}&keyword=${keyword}&cat=${cat}&location=${location}`
       );
       dispatch({
         type: JOB_LOAD_SUCCESS,
@@ -43,9 +43,7 @@ export const jobLoadAction =
 export const jobLoadSingleAction = (id) => async (dispatch) => {
   dispatch({ type: JOB_LOAD_SINGLE_REQUEST });
   try {
-    const { data } = await axios.get(
-      `https://job-portal-backend-6gxk.onrender.com/api/job/${id}`
-    );
+    const { data } = await instance.get(`/api/job/${id}`);
     dispatch({
       type: JOB_LOAD_SINGLE_SUCCESS,
       payload: data,
@@ -62,9 +60,7 @@ export const jobLoadSingleAction = (id) => async (dispatch) => {
 export const deleteSingleJobAction = (job_id) => async (dispatch) => {
   dispatch({ type: DELETE_JOB_REQUEST });
   try {
-    const { data } = await axios.delete(
-      `https://job-portal-backend-6gxk.onrender.com/api/job/delete/${job_id}`
-    );
+    const { data } = await instance.delete(`/api/job/delete/${job_id}`);
     dispatch({
       type: DELETE_JOB_SUCCESS,
       payload: data,
@@ -84,10 +80,7 @@ export const registerAjobAction = (job) => async (dispatch) => {
   dispatch({ type: REGISTER_JOB_REQUEST });
 
   try {
-    const { data } = await axios.post(
-      "https://job-portal-backend-6gxk.onrender.com/api/job/create",
-      job
-    );
+    const { data } = await instance.post("/api/job/create", job);
     dispatch({
       type: REGISTER_JOB_SUCCESS,
       payload: data,
@@ -107,8 +100,8 @@ export const updateJobAction = (job_id, updatedData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_JOB_REQUEST });
 
-    const { data } = await axios.put(
-      `https://job-portal-backend-6gxk.onrender.com/api/job/update/${job_id}`,
+    const { data } = await instance.put(
+      `/api/job/update/${job_id}`,
       updatedData
     );
 
