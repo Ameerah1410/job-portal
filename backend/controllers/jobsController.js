@@ -64,76 +64,6 @@ exports.updateJob = async (req, res, next) => {
   }
 };
 
-// Show all jobs with search, filter, and pagination
-exports.showJobs = async (req, res, next) => {
-  // Enable search
-  const keyword = req.query.keyword
-    ? {
-        title: {
-          $regex: req.query.keyword,
-          $options: "i",
-        },
-      }
-    : {};
-
-  // Fetch all job categories to filter jobs by category IDs
-  let ids = [];
-  const jobTypeCategory = await JobType.find({}, { _id: 1 });
-  jobTypeCategory.forEach((cat) => {
-    ids.push(cat._id);
-  });
-
-  // Filter jobs by category IDs
-  let cat = req.query.cat;
-  let categ = cat !== "" ? cat : ids;
-
-  // Fetch all unique job locations
-  let locations = [];
-  const jobByLocation = await Job.find({}, { location: 1 });
-  jobByLocation.forEach((val) => {
-    locations.push(val.location);
-  });
-  let setUniqueLocation = [...new Set(locations)];
-  let location = req.query.location;
-  let locationFilter = location !== "" ? location : setUniqueLocation;
-
-  // Enable pagination
-  const pageSize = 5;
-  const page = Number(req.query.pageNumber) || 1;
-  const count = await Job.find({
-    ...keyword,
-    jobType: categ,
-    location: locationFilter,
-  }).countDocuments();
-
-  try {
-    // Fetch jobs based on search, category, location, and pagination parameters
-    const jobs = await Job.find({
-      ...keyword,
-      jobType: categ,
-      location: locationFilter,
-    })
-      .sort({ createdAt: -1 })
-      .populate("jobType", "jobTypeName")
-      .populate("user", "firstName")
-      .skip(pageSize * (page - 1))
-      .limit(pageSize);
-
-    // Respond with the list of jobs
-    res.status(200).json({
-      success: true,
-      jobs,
-      page,
-      pages: Math.ceil(count / pageSize),
-      count,
-      setUniqueLocation,
-    });
-  } catch (error) {
-    // Pass any errors to the error-handling middleware
-    next(error);
-  }
-};
-
 // Delete a job by its ID
 exports.deleteJob = async (req, res, next) => {
   try {
@@ -155,6 +85,67 @@ exports.deleteJob = async (req, res, next) => {
     });
   } catch (error) {
     // Pass any errors to the error-handling middleware
+    next(error);
+  }
+};
+
+exports.showJobs = async (req, res, next) => {
+  //enable search
+  const keyword = req.query.keyword
+    ? {
+        title: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+
+  // filter jobs by category ids
+  let ids = [];
+  const jobTypeCategory = await JobType.find({}, { _id: 1 });
+  jobTypeCategory.forEach((cat) => {
+    ids.push(cat._id);
+  });
+
+  let cat = req.query.cat;
+  let categ = cat !== "" ? cat : ids;
+
+  //jobs by location
+  let locations = [];
+  const jobByLocation = await Job.find({}, { location: 1 });
+  jobByLocation.forEach((val) => {
+    locations.push(val.location);
+  });
+  let setUniqueLocation = [...new Set(locations)];
+  let location = req.query.location;
+  let locationFilter = location !== "" ? location : setUniqueLocation;
+
+  //enable pagination
+  const pageSize = 5;
+  const page = Number(req.query.pageNumber) || 1;
+  //const count = await Job.find({}).estimatedDocumentCount();
+  const count = await Job.find({
+    ...keyword,
+    jobType: categ,
+    location: locationFilter,
+  }).countDocuments();
+
+  try {
+    const jobs = await Job.find({
+      ...keyword,
+      jobType: categ,
+      location: locationFilter,
+    })
+      .skip(pageSize * (page - 1))
+      .limit(pageSize);
+    res.status(200).json({
+      success: true,
+      jobs,
+      page,
+      pages: Math.ceil(count / pageSize),
+      count,
+    });
+  } catch (error) {
     next(error);
   }
 };
