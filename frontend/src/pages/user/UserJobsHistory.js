@@ -1,4 +1,4 @@
-// Importing necessary Material-UI components and React
+// Importing necessary Material-UI components and React:
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import React from "react";
