@@ -1,14 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
-const cookieSession = require("cookie-session");
+//const cookieSession = require("cookie-session");
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -17,7 +15,7 @@ const jobsRoutes = require("./routes/jobsRoutes");
 
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
-
+//support
 const PORT = process.env.PORT || 5000;
 
 // Middleware and security-related setups

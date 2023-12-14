@@ -58,7 +58,7 @@ This will start the development server on port 3000 by default. Your web browser
 
 You can test the app using various testing frameworks and tools like Jest and React Testing Library for the frontend, and Superjest or any testing tool of your choice for the backend.
 
-1. To run tests for the frontend, use the following command in the project root directory:
+1. To run tests for the frontend, navigate to the frontend directory and run:
 
    npm test
 
@@ -84,16 +84,19 @@ You can test the app using various testing frameworks and tools like Jest and Re
    JSON Web Tokens (JWT) are used with short expiration times and stored in secure HTTP-only cookies. This practice enhances security by reducing the risk of token misuse, especially in the event of a token being compromised.
 
 6. Environment Variables:
-   Sensitive information, such as API keys, should be stored as environment variables. Although API keys were not needed to access this public access API, it is essential to avoid hardcoding any sensitive information in the source code. Instead, these values should be stored as environment variables and accessed using the process.env object in the application code.
+   Sensitive information, such as API keys, should be stored as environment variables. Although API keys were not needed to access my app, it is essential to avoid hardcoding any sensitive information in the source code. Instead, these values should be stored as environment variables and accessed using the process.env object in the application code.
 
 7. General Best Practices:
    The application adheres to general best practices for secure coding, including regular updates of dependencies, input validation, secure transmission of data, and proper handling of user sessions.
 
-### Link to deplyed app
+### Links to deplyed app
 
-Deploying both the frontend and backend together simplifies the deployment process, ensures consistent versioning, and allows for easier scalability.
+My app was deployed separately.
+Deploying the backend on Render and the frontend on Netlify offers benefits of scalability, modular development, enhanced security, improved developer experience, and infrastructure flexibility. This separation allows independent scaling of frontend and backend components, streamlining development cycles and reducing the risk of errors. It enhances security by minimizing the attack surface and enables granular control over access permissions.
 
-///////////////////////////////////////////
+Backend deployment link:
+
+Frontend deployment link:
 
 ### Additional Notes
 
@@ -101,4 +104,4 @@ Deploying both the frontend and backend together simplifies the deployment proce
 - If you encounter any issues or errors, please check the console for error messages, as they can provide helpful information for debugging.
 - You can customize the number of search results to display in the Express backend by modifying the limit parameter in the server.js file.
 
-Now you're ready to explore and use the iTunes Search App on your local machine. Enjoy!
+Now you're ready to explore and use the Job Portal App on your local machine. Enjoy!

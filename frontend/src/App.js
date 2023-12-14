@@ -1,8 +1,6 @@
 // Importing necessary dependencies and components
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -41,25 +39,6 @@ const EditJobHOC = Layout(EditJob);
 
 // Main App component
 const App = () => {
-  // State to manage user information
-  const [user, setUser] = useState(null);
-
-  // Function to fetch user information
-  const getUser = async () => {
-    try {
-      const url = "http://localhost:5000/auth/login/success";
-      const { data } = await axios.get(url, { withCredentials: true });
-      setUser(data.user._json);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // Fetch user information on component mount
-  useEffect(() => {
-    getUser();
-  }, []);
-
   return (
     <>
       {/* Notification container */}
@@ -76,7 +55,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/search/location/:location" element={<Home />} />
             <Route path="/search/:keyword" element={<Home />} />
-            <Route path="/login" element={<LogIn user={user} />} />
+            <Route path="/login" element={<LogIn />} />
             <Route path="/register" element={<Register />} />
             <Route path="/job/:id" element={<SingleJob />} />
 

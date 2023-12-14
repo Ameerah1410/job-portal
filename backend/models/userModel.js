@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // Subschema for jobs history
@@ -69,6 +69,10 @@ const userSchema = new mongoose.Schema(
       trim: true,
       required: [true, "Password is required"],
       minlength: [6, "Password must have at least (6) characters"],
+    },
+    googleId: {
+      type: String,
+      unique: true,
     },
     jobsHistory: [jobsHistorySchema], // Embedding jobs history schema
 
