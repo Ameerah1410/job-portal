@@ -1,6 +1,6 @@
 // Importing necessary dependencies and components
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Home from "./pages/Home";

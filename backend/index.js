@@ -7,10 +7,8 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const passport = require("passport");
+
 const cookieSession = require("cookie-session");
-const passportSetup = require("./passport");
-const authRoute = require("./routes/auth");
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -21,29 +19,6 @@ const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
 
 const PORT = process.env.PORT || 5000;
-
-// Initialize cookie session for user authentication
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["ameerah"],
-    maxAge: 24 * 60 * 60 * 100,
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Enable CORS with specific options
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    methods: "GET,POST,PUT,DELETE",
-    credentials: true,
-  })
-);
-
-// Authentication routes
-app.use("/auth", authRoute);
 
 // Middleware and security-related setups
 app.use(helmet());

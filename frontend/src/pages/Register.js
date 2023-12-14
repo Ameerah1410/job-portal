@@ -55,14 +55,6 @@ const Register = () => {
     },
   });
 
-  // Function to initiate Google authentication
-  const googleAuth = () => {
-    window.open(
-      `${process.env.REACT_APP_API_URL}/auth/google/callback`,
-      "_self"
-    );
-  };
-
   // Rendering JSX
   return (
     <>
@@ -202,10 +194,6 @@ const Register = () => {
             {/* Register and Google registration buttons */}
             <Button fullWidth variant="contained" type="submit">
               Register
-            </Button>
-            <p>or</p>
-            <Button onClick={googleAuth} fullWidth variant="contained">
-              Register with Google
             </Button>
           </Box>
         </Box>
